@@ -10,7 +10,7 @@ const objectToSave = {
     message: "",
 };
 
-savedMessage = localStorage.getItem(LOCALSTORAGE_KEY);
+const savedMessage = localStorage.getItem(LOCALSTORAGE_KEY);
 localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(objectToSave));
 emailInput.value = JSON.parse(savedMessage).email || "";
 messageInput.value = JSON.parse(savedMessage).message || "";
