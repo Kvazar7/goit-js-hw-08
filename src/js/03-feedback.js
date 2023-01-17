@@ -12,14 +12,15 @@ const objectToSave = {
 
 form.addEventListener("input", throttle(addLocalStorageData, 500));
 function addLocalStorageData(e) {
-    const {
-        elements: { email, message }
-    } = e.target;
-    const savedData = {
-        email: email.value,
-        message: message.value
-    };
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(savedData));
+    switch (e.target.name) {
+        case "email":
+            objectToSave.email = e.target.value;
+            break;
+        case "message":
+            objectToSave.message = e.target.value;
+            break;
+    }
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(objectToSave));
 };
 
 const dataObject = localStorage.getItem(LOCALSTORAGE_KEY);
