@@ -15,8 +15,8 @@ localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(objectToSave));
 emailInput.value = JSON.parse(savedMessage).email || "";
 messageInput.value = JSON.parse(savedMessage).message || "";
 
-// form.addEventListener("input", throttle(addLocalStorageData, 500));
 form.addEventListener("input", addLocalStorageData);
+// form.addEventListener("input", throttle(addLocalStorageData, 500));
 function addLocalStorageData(e) {
     const {
         elements: { email, message }
