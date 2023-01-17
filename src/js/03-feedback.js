@@ -10,17 +10,11 @@ const objectToSave = {
     message: "",
 };
 
-const savedMessage = localStorage.getItem(LOCALSTORAGE_KEY);
-localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(objectToSave));
-emailInput.value = JSON.parse(savedMessage).email || "";
-messageInput.value = JSON.parse(savedMessage).message || "";
-
-form.addEventListener("input", addLocalStorageData);
-// form.addEventListener("input", throttle(addLocalStorageData, 500));
+form.addEventListener("input", throttle(addLocalStorageData, 500));
 function addLocalStorageData(e) {
     const {
         elements: { email, message }
-    } = e.currentTarget;
+    } = e.target;
     const savedData = {
         email: email.value,
         message: message.value
@@ -28,13 +22,28 @@ function addLocalStorageData(e) {
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(savedData));
 };
 
+const dataObject = localStorage.getItem(LOCALSTORAGE_KEY);
+function getDataFromLS(object) {
+    if (object && emailInput.name === "email") {
+        emailInput.value = JSON.parse(object).email;
+    }
+    if (object && messageInput.name === "message") {
+        messageInput.value = JSON.parse(object).message;
+    }
+}
+getDataFromLS(dataObject);
+
 form.addEventListener("submit", submitForm);
 function submitForm(e) {
     e.preventDefault();
     const {
     elements: { email, message }
     } = e.currentTarget;
-    console.log(`email: ${email.value}, message: ${message.value}`);
+    const savedData = {
+        email: email.value,
+        message: message.value
+    };
+    console.log(savedData);
     e.currentTarget.reset(),
     localStorage.clear();
 };
